@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: order-service
+
+
+
+
+server:
+  port: 9091
+
+# Directory where created orders are written as JSON files. Use a relative path to avoid requiring root permissions.
+order:
+  output:
+    dir: ./input/orders
