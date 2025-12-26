@@ -9,6 +9,7 @@ import org.cashinvoice.com.order.model.Order;
 import org.cashinvoice.com.order.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class OrderController {
 
     @Operation(summary = "Create a new order")
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public ResponseEntity<CreateOrderResponse> createOrder(@Valid @RequestBody CreateOrderRequest request) {
         log.debug("Received create order request: {}", request);
         CreateOrderResponse response = orderService.createOrder(request);
@@ -34,6 +36,7 @@ public class OrderController {
     }
 
     @Operation(summary = "Get order by id")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{orderId}")
     public ResponseEntity<Order> getOrderById(@PathVariable String orderId) {
         Order order = orderService.getOrderById(orderId);
@@ -42,6 +45,7 @@ public class OrderController {
 
     @Operation(summary = "List orders by customer (optional customerId)")
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<Order>> listOrdersByCustomer(@RequestParam(required = false) String customerId) {
         if (customerId == null) {
             return ResponseEntity.ok(List.of());

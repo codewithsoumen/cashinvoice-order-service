@@ -1,7 +1,8 @@
 # Flow
 The entire flow consists of two main services that work together to process and manage orders.
-1.	cashinvoice-order-service - create order and save the order as a JSON file.
-2.	cashinvoice-integration-service - poll the order JSON file and process it further (e.g., send to an external system).
+1. cashinvoice-auth-service - handles user authentication and JWT token generation.
+2. cashinvoice-order-service - create order and save the order as a JSON file.
+3. cashinvoice-integration-service - poll the order JSON file and process it further (e.g., send to an external system).
 
 
 
